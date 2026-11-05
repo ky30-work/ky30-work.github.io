@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>我的作品集</title>
+  <style>
+    :root {
+      --yellow: #f5c542;
+      --yellow-light: #fff7db;
+      --ink: #24231f;
+      --muted: #85837b;
+      --line: #eeece5;
+      --surface: #ffffff;
+      --background: #faf9f5;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--background);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Microsoft YaHei", sans-serif;
+    }
+
+    button, select { font: inherit; }
+
+    .topbar {
+      height: 72px;
+      padding: 0 7%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 18px;
+      font-weight: 750;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border-radius: 11px;
+      background: var(--yellow);
+      font-weight: 900;
+    }
+
+    .top-note { color: var(--muted); font-size: 13px; }
+
+    main {
+      width: min(1120px, 88%);
+      margin: 0 auto;
+      padding: 58px 0 72px;
+    }
+
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      padding: 36px 40px;
+      border: 1px solid #f1e7c2;
+      border-radius: 24px;
+      background: linear-gradient(110deg, #fff5cf, #fffdf6 72%);
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: #94731a;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    h1 { margin: 0; font-size: clamp(30px, 4vw, 44px); letter-spacing: -1px; }
+    .hero p:last-child { margin: 12px 0 0; color: #77736a; line-height: 1.7; }
+
+    .upload-button {
+      flex: 0 0 auto;
+      padding: 13px 20px;
+      color: #211e14;
+      background: var(--yellow);
+      border: 0;
+      border-radius: 12px;
+      font-weight: 750;
+      cursor: pointer;
+      box-shadow: 0 5px 14px #dfb43533;
+      transition: transform .18s, background .18s;
+    }
+
+    .upload-button:hover { transform: translateY(-2px); background: #f0bb26; }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin: 42px 0 18px;
+    }
+
+    h2 { margin: 0; font-size: 22px; }
+    .count { margin-top: 6px; color: var(--muted); font-size: 13px; }
+
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .filter {
+      padding: 8px 14px;
+      color: #69675f;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .filter.active {
+      color: #302713;
+      border-color: var(--yellow);
+      background: var(--yellow-light);
+      font-weight: 700;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 26px #28230c0d;
+    }
+
+    .preview {
+      position: relative;
+      display: grid;
+      height: 210px;
+      place-items: center;
+      overflow: hidden;
+      background: #f1efe8;
+      cursor: pointer;
+    }
+
+    .preview img, .preview video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .file-preview { text-align: center; color: #807c70; }
+    .file-icon { margin-bottom: 8px; font-size: 42px; }
+    .file-label { font-size: 12px; }
+
+    .card-info { padding: 15px 16px 16px; }
+    .card-title { overflow: hidden; margin: 0; font-size: 15px; text-overflow: ellipsis; white-space: nowrap; }
+    .card-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 11px; }
+    .tag {
+      padding: 5px 9px;
+      color: #785d11;
+      background: var(--yellow-light);
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .file-size { color: var(--muted); font-size: 12px; }
+    .remove-button {
+      padding: 4px 0 4px 8px;
+      color: #aaa69b;
+      background: none;
+      border: 0;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .remove-button:hover { color: #bd4d3e; }
+
+    .empty {
+      grid-column: 1 / -1;
+      padding: 66px 20px;
+      color: var(--muted);
+      background: white;
+      border: 1px dashed #dedbd1;
+      border-radius: 17px;
+      text-align: center;
+    }
+    .empty-icon { margin-bottom: 12px; font-size: 38px; }
+    .empty strong { display: block; margin-bottom: 7px; color: #555249; }
+
+    dialog {
+      width: min(760px, 92vw);
+      max-height: 88vh;
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+      border-radius: 18px;
+      box-shadow: 0 24px 80px #0003;
+    }
+    dialog::backdrop { background: #181712aa; }
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    .modal-head strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .close-button {
+      padding: 4px 8px;
+      color: #68655d;
+      background: none;
+      border: 0;
+      cursor: pointer;
+      font-size: 22px;
+    }
+    .modal-content {
+      display: grid;
+      min-height: 220px;
+      max-height: 70vh;
+      place-items: center;
+      padding: 20px;
+      overflow: auto;
+      background: #f7f6f2;
+    }
+    .modal-content img, .modal-content video { max-width: 100%; max-height: 62vh; }
+    .modal-content audio { width: min(500px, 100%); }
+    .modal-file { color: #77736a; text-align: center; line-height: 1.8; }
+    .modal-file .file-icon { font-size: 52px; }
+
+    @media (max-width: 760px) {
+      main { width: 92%; padding-top: 30px; }
+      .topbar { padding: 0 4%; }
+      .top-note { display: none; }
+      .hero { align-items: flex-start; flex-direction: column; padding: 27px 24px; }
+      .section-heading { align-items: flex-start; flex-direction: column; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
+      .preview { height: 170px; }
+    }
+
+    @media (max-width: 480px) {
+      .grid { grid-template-columns: 1fr; }
+      .preview { height: 220px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">作</span><span>我的作品集</span></div>
+    <div class="top-note">记录灵感 · 展示创作</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">MY CREATIVE SPACE</p>
+        <h1>每一份创作，都值得被看见。</h1>
+        <p>一个简单的个人作品空间，整理并展示你的设计与创意作品。</p>
+      </div>
+      <button class="upload-button" id="openUpload">＋ 上传作品</button>
+    </section>
+
+    <section class="section-heading">
+      <div>
+        <h2>作品展示</h2>
+        <div class="count" id="count">共 0 件作品</div>
+      </div>
+      <nav class="filters" aria-label="作品分类">
+        <button class="filter active" data-category="全部">全部</button>
+        <button class="filter" data-category="PS">PS</button>
+        <button class="filter" data-category="AI">AI</button>
+        <button class="filter" data-category="AU">AU</button>
+        <button class="filter" data-category="3D Max">3D Max</button>
+      </nav>
+    </section>
+
+    <section class="grid" id="作品网格"></section>
+
+    <input id="fileInput" type="file" multiple hidden
+      accept="image/*,audio/*,video/*,.psd,.ai,.aep,.aup,.aup3,.wav,.mp3,.fbx,.obj,.stl,.blend,.glb,.gltf" />
+
+    <dialog id="previewDialog">
+      <div class="modal-head">
+        <strong id="modalTitle"></strong>
+        <button class="close-button" id="closeModal" aria-label="关闭">×</button>
+      </div>
+      <div class="modal-content" id="modalContent"></div>
+    </dialog>
+  </main>
+
+  <script>
+    const files = [];
+    let activeCategory = "全部";
+
+    const grid = document.getElementById("作品网格");
+    const fileInput = document.getElementById("fileInput");
+    const dialog = document.getElementById("previewDialog");
+
+    document.getElementById("openUpload").addEventListener("click", () => fileInput.click());
+
+    document.querySelectorAll(".filter").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelector(".filter.active").classList.remove("active");
+        button.classList.add("active");
+        activeCategory = button.dataset.category;
+        render();
+      });
+    });
+
+    fileInput.addEventListener("change", (event) => {
+      const selectedFiles = Array.from(event.target.files || []);
+      if (!selectedFiles.length) return;
+
+      const category = window.prompt("请选择分类：PS、AI、AU 或 3D Max", "PS");
+      if (category === null) {
+        fileInput.value = "";
+        return;
+      }
+
+      const normalized = category.trim().toLowerCase();
+      const categoryMap = {
+        "ps": "PS", "photoshop": "PS",
+        "ai": "AI", "illustrator": "AI",
+        "au": "AU", "audition": "AU",
+        "3d max": "3D Max", "3dmax": "3D Max", "3ds max": "3D Max"
+      };
+      const chosenCategory = categoryMap[normalized];
+
+      if (!chosenCategory) {
+        alert("请输入 PS、AI、AU 或 3D Max。");
+        fileInput.value = "";
+        return;
+      }
+
+      selectedFiles.forEach((file) => {
+        files.unshift({
+          id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random()),
+          file,
+          name: file.name,
+          category: chosenCategory,
+          url: URL.createObjectURL(file)
+        });
+      });
+
+      render();
+      fileInput.value = "";
+    });
+
+    function formatSize(bytes) {
+      if (bytes < 1024 * 1024) return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+      return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+    }
+
+    function getFileIcon(file) {
+      const name = file.name.toLowerCase();
+      if (name.endsWith(".psd")) return "🖼️";
+      if (name.endsWith(".ai")) return "✒️";
+      if (/\.(fbx|obj|stl|blend|glb|gltf)$/.test(name)) return "🧊";
+      return "📄";
+    }
+
+    function createPreview(item) {
+      const box = document.createElement("div");
+      box.className = "preview";
+      const type = item.file.type;
+
+      if (type.startsWith("image/")) {
+        const image = document.createElement("img");
+        image.src = item.url;
+        image.alt = item.name;
+        box.append(image);
+      } else if (type.startsWith("video/")) {
+        const video = document.createElement("video");
+        video.src = item.url;
+        video.muted = true;
+        video.preload = "metadata";
+        box.append(video);
+      } else {
+        const placeholder = document.createElement("div");
+        placeholder.className = "file-preview";
+        const icon = document.createElement("div");
+        icon.className = "file-icon";
+        icon.textContent = type.startsWith("audio/") ? "🎵" : getFileIcon(item.file);
+        const label = document.createElement("div");
+        label.className = "file-label";
+        label.textContent = type.startsWith("audio/") ? "音频作品 · 点击试听" : "点击查看文件信息";
+        placeholder.append(icon, label);
+        box.append(placeholder);
+      }
+
+      box.addEventListener("click", () => openPreview(item));
+      return box;
+    }
+
+    function render() {
+      const visibleFiles = activeCategory === "全部"
+        ? files
+        : files.filter((item) => item.category === activeCategory);
+
+      document.getElementById("count").textContent = `共 ${files.length} 件作品`;
+      grid.replaceChildren();
+
+      if (!visibleFiles.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty";
+        empty.innerHTML = "<div class='empty-icon'>✨</div><strong>还没有作品</strong><span>点击右上角「上传作品」，添加你的第一个创作。</span>";
+        grid.append(empty);
+        return;
+      }
+
+      visibleFiles.forEach((item) => {
+        const card = document.createElement("article");
+        card.className = "card";
+        card.append(createPreview(item));
+
+        const info = document.createElement("div");
+        info.className = "card-info";
+
+        const title = document.createElement("h3");
+        title.className = "card-title";
+        title.textContent = item.name;
+
+        const meta = document.createElement("div");
+        meta.className = "card-meta";
+
+        const tag = document.createElement("span");
+        tag.className = "tag";
+        tag.textContent = item.category;
+
+        const size = document.createElement("span");
+        size.className = "file-size";
+        size.textContent = formatSize(item.file.size);
+
+        const remove = document.createElement("button");
+        remove.className = "remove-button";
+        remove.textContent = "移除";
+        remove.setAttribute("aria-label", `移除 ${item.name}`);
+        remove.addEventListener("click", () => {
+          URL.revokeObjectURL(item.url);
+          const index = files.findIndex((file) => file.id === item.id);
+          if (index !== -1) files.splice(index, 1);
+          render();
+        });
+
+        meta.append(tag, size, remove);
+        info.append(title, meta);
+        card.append(info);
+        grid.append(card);
+      });
+    }
+
+    function openPreview(item) {
+      const content = document.getElementById("modalContent");
+      content.replaceChildren();
+      document.getElementById("modalTitle").textContent = item.name;
+
+      const type = item.file.type;
+      let previewElement;
+
+      if (type.startsWith("image/")) {
+        previewElement = document.createElement("img");
+        previewElement.src = item.url;
+        previewElement.alt = item.name;
+      } else if (type.startsWith("audio/")) {
+        previewElement = document.createElement("audio");
+        previewElement.src = item.url;
+        previewElement.controls = true;
+        previewElement.autoplay = true;
+      } else if (type.startsWith("video/")) {
+        previewElement = document.createElement("video");
+        previewElement.src = item.url;
+        previewElement.controls = true;
+        previewElement.autoplay = true;
+      } else {
+        previewElement = document.createElement("div");
+        previewElement.className = "modal-file";
+        previewElement.innerHTML = `<div class="file-icon">${getFileIcon(item.file)}</div>`;
+        const details = document.createElement("div");
+        details.textContent = `${item.name} · ${item.category} · ${formatSize(item.file.size)}`;
+        previewElement.append(details);
+        const note = document.createElement("div");
+        note.textContent = "此格式暂不支持网页内直接预览，可下载到对应软件中打开。";
+        previewElement.append(note);
+      }
+
+      content.append(previewElement);
+      dialog.showModal();
+    }
+
+    document.getElementById("closeModal").addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+
+    render();
+  </script>
+</body>
+</html>
+```
