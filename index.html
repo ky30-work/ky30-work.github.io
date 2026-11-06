@@ -12,24 +12,33 @@
       --muted: #8d7964;
       --yellow: #f5d875;
       --yellow-light: #fff8df;
-      --line: #eadfc7;
-      --surface: rgba(255, 253, 246, .94);
+      --line: #d7c6a3;
+      --surface: rgba(255, 255, 255, .98);
       --shadow: 0 12px 34px rgba(90, 62, 35, .10);
     }
 
     * { box-sizing: border-box; }
     body {
+      position: relative;
+      isolation: isolate;
       min-height: 100vh;
       margin: 0;
       color: var(--brown-dark);
-      background-color: #fff7cf;
+      background: #f8f6f0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Microsoft YaHei", sans-serif;
+    }
+    body::before {
+      position: fixed;
+      z-index: -1;
+      inset: 0;
       background-image: url("./pumbg.jpg");
       background-position: center top;
       background-size: min(100vw, 780px) auto;
       background-repeat: repeat;
-      background-attachment: fixed;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
-        "Microsoft YaHei", sans-serif;
+      opacity: .24;
+      content: "";
+      pointer-events: none;
     }
     button { font: inherit; }
     .topbar {
@@ -41,8 +50,8 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 max(6%, calc((100% - 1120px) / 2));
-      background: rgba(255, 252, 238, .94);
-      border-bottom: 1px solid rgba(234, 223, 199, .85);
+      background: rgba(255, 255, 255, .97);
+      border-bottom: 1px solid #d7c6a3;
       backdrop-filter: blur(12px);
     }
     .brand { display: flex; align-items: center; gap: 11px; font-size: 18px; font-weight: 800; }
@@ -68,9 +77,9 @@
       gap: 24px;
       overflow: hidden;
       padding: 34px clamp(22px, 5vw, 52px);
-      border: 1px solid rgba(234, 213, 160, .9);
+      border: 1px solid #d9c49a;
       border-radius: 28px;
-      background: linear-gradient(110deg, rgba(255, 249, 222, .97), rgba(255, 254, 247, .94));
+      background: linear-gradient(110deg, rgba(255, 252, 238, .99), rgba(255, 255, 255, .97));
       box-shadow: var(--shadow);
     }
     .hero-copy { position: relative; z-index: 1; max-width: 580px; }
@@ -104,9 +113,9 @@
       width: 78px;
       height: 78px;
       padding: 5px;
-      border: 1px solid #f0dfb8;
+      border: 1px solid #e3d2b1;
       border-radius: 50%;
-      background: rgba(255, 252, 235, .94);
+      background: rgba(255, 255, 255, .98);
     }
     .upload-button {
       position: relative;
@@ -140,30 +149,31 @@
     .filter {
       padding: 8px 13px;
       color: #76634f;
-      background: rgba(255, 253, 246, .92);
-      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, .97);
+      border: 1px solid #d7c6a3;
       border-radius: 999px;
       cursor: pointer;
       font-size: 13px;
       transition: background .15s, border-color .15s;
     }
-    .filter:hover, .filter.active { color: #5c4024; border-color: #dfc477; background: #fff3c8; font-weight: 700; }
+    .filter:hover, .filter.active { color: #5c4024; border-color: #c5a85e; background: #fff3c8; font-weight: 700; }
     .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
     .card {
       overflow: hidden;
       background: var(--surface);
-      border: 1px solid rgba(234, 223, 199, .95);
+      border: 1.5px solid #cbb894;
       border-radius: 18px;
-      box-shadow: 0 5px 18px rgba(90, 62, 35, .07);
+      box-shadow: 0 6px 20px rgba(74, 52, 31, .12);
       transition: transform .2s, box-shadow .2s;
     }
-    .card:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(90, 62, 35, .13); }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 13px 28px rgba(74, 52, 31, .18); }
     .preview {
       display: grid;
       height: 210px;
       place-items: center;
       overflow: hidden;
-      background: #fff9e9;
+      background: #fffdf8;
+      border-bottom: 1px solid #e0d4bd;
       cursor: pointer;
     }
     .preview img { width: 100%; height: 100%; object-fit: cover; }
@@ -177,7 +187,7 @@
       padding: 5px 9px;
       color: #9a5142;
       background: #fff5f1;
-      border: 1px solid #efd6cb;
+      border: 1px solid #e3c2b5;
       border-radius: 8px;
       cursor: pointer;
       font-size: 12px;
@@ -188,9 +198,10 @@
       grid-column: 1 / -1;
       padding: 58px 20px;
       color: var(--muted);
-      background: rgba(255, 253, 246, .94);
-      border: 1px dashed #dccb9f;
+      background: rgba(255, 255, 255, .98);
+      border: 1.5px dashed #cbb894;
       border-radius: 18px;
+      box-shadow: 0 6px 20px rgba(74, 52, 31, .08);
       text-align: center;
     }
     .empty-icon { margin-bottom: 10px; font-size: 34px; }
@@ -204,9 +215,10 @@
       padding: 14px 20px;
       width: fit-content;
       max-width: 100%;
-      border: 1px solid rgba(234, 223, 199, .85);
+      border: 1px solid #d7c6a3;
       border-radius: 999px;
-      background: rgba(255, 253, 246, .8);
+      background: rgba(255, 255, 255, .94);
+      box-shadow: 0 4px 14px rgba(74, 52, 31, .08);
     }
     .footer-mascots img { width: 62px; height: 55px; object-fit: contain; }
     dialog {
@@ -219,10 +231,10 @@
       box-shadow: 0 24px 80px #0003;
     }
     dialog::backdrop { background: rgba(47, 35, 24, .58); backdrop-filter: blur(3px); }
-    .modal-head { display: flex; align-items: center; justify-content: space-between; padding: 15px 20px; background: #fffdf6; border-bottom: 1px solid var(--line); }
+    .modal-head { display: flex; align-items: center; justify-content: space-between; padding: 15px 20px; background: #fff; border-bottom: 1px solid var(--line); }
     .modal-head strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .close-button { padding: 4px 8px; color: #68655d; background: none; border: 0; cursor: pointer; font-size: 22px; }
-    .modal-content { display: grid; min-height: 220px; max-height: 70vh; place-items: center; padding: 20px; overflow: auto; background: #fffaf0; }
+    .modal-content { display: grid; min-height: 220px; max-height: 70vh; place-items: center; padding: 20px; overflow: auto; background: #fff; }
     .modal-content img { max-width: 100%; max-height: 62vh; }
     @media (max-width: 760px) {
       main { width: 92%; padding-top: 25px; }
@@ -311,11 +323,10 @@
   </main>
 
   <script>
-    // 浏览器端只能使用 Supabase publishable/anon key；不要把 service_role key 放在网页中。
     const SUPABASE_URL = "https://ksotjfwekiquoumbnpno.supabase.co";
     const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_5GGVkmqdb14vPyx6MfcKEQ_NYKJZxfh";
     const BUCKET_NAME = "my-works";
-    // 仅作为二次确认；公开网页源码中可见，不是安全认证。
+    // 此密钥仅用于防误操作，公开网页源码中可见，不是安全认证。
     const DELETE_CONFIRMATION_KEY = "070414";
     const UPLOAD_CONFIRMATION_KEY = DELETE_CONFIRMATION_KEY;
     const CATEGORIES = ["PS", "AI", "AU", "3D Max"];
