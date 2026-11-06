@@ -176,6 +176,7 @@
     const SUPABASE_URL = "https://ksotjfwekiquoumbnpno.supabase.co";
     const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_5GGVkmqdb14vPyx6MfcKEQ_NYKJZxfh";
     const BUCKET_NAME = "my-works";
+    const DELETE_CONFIRMATION_KEY = "070414"; // 仅作为二次确认；公开网页源码中可见，不是安全认证。
     const CATEGORIES = ["PS", "AI", "AU", "3D Max"];
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
@@ -317,6 +318,13 @@
 
     async function deleteWork(item, button) {
       if (!window.confirm(`确定要永久删除「${item.name}」吗？此操作无法撤销。`)) return;
+
+      const enteredKey = window.prompt("请输入删除确认密钥以继续：");
+      if (enteredKey === null) return;
+      if (enteredKey !== DELETE_CONFIRMATION_KEY) {
+        alert("确认密钥错误，未删除作品。");
+        return;
+      }
 
       button.disabled = true;
       button.textContent = "删除中…";
