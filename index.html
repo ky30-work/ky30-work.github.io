@@ -79,12 +79,18 @@
     .preview img { width: 100%; height: 100%; object-fit: cover; }
     .card-info { padding: 15px 16px 16px; }
     .card-title { overflow: hidden; margin: 0; font-size: 15px; text-overflow: ellipsis; white-space: nowrap; }
-    .card-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 11px; }
+    .card-meta { display: flex; align-items: center; gap: 10px; margin-top: 11px; }
     .tag {
       padding: 5px 9px; color: #785d11; background: var(--yellow-light);
       border-radius: 999px; font-size: 11px; font-weight: 700;
     }
-    .file-size { color: var(--muted); font-size: 12px; }
+    .file-size { margin-left: auto; color: var(--muted); font-size: 12px; }
+    .delete-button {
+      flex: 0 0 auto; padding: 5px 9px; color: #a63e32; background: #fff3f1;
+      border: 1px solid #f1d2cd; border-radius: 8px; cursor: pointer; font-size: 12px;
+    }
+    .delete-button:hover { color: #fff; background: #bd4d3e; border-color: #bd4d3e; }
+    .delete-button:disabled { opacity: .6; cursor: wait; }
     .empty {
       grid-column: 1 / -1; padding: 66px 20px; color: var(--muted); background: white;
       border: 1px dashed #dedbd1; border-radius: 17px; text-align: center;
@@ -309,6 +315,28 @@
       }
     }
 
+    async function deleteWork(item, button) {
+      if (!window.confirm(`确定要永久删除「${item.name}」吗？此操作无法撤销。`)) return;
+
+      button.disabled = true;
+      button.textContent = "删除中…";
+      try {
+        const { error } = await supabaseClient.storage
+          .from(BUCKET_NAME)
+          .remove([item.path]);
+        if (error) throw error;
+
+        const index = works.findIndex((work) => work.path === item.path);
+        if (index !== -1) works.splice(index, 1);
+        render();
+      } catch (error) {
+        console.error("删除 Supabase Storage 图片失败：", error);
+        alert(`删除失败：${error.message || "请检查 Storage 删除权限后重试。"}`);
+        button.disabled = false;
+        button.textContent = "删除";
+      }
+    }
+
     function render() {
       const visibleWorks = activeCategory === "全部"
         ? works
@@ -361,7 +389,14 @@
         const size = document.createElement("span");
         size.className = "file-size";
         size.textContent = formatSize(item.size);
-        meta.append(tag, size);
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "delete-button";
+        deleteButton.type = "button";
+        deleteButton.textContent = "删除";
+        deleteButton.setAttribute("aria-label", `删除作品 ${item.name}`);
+        deleteButton.addEventListener("click", () => deleteWork(item, deleteButton));
+
+        meta.append(tag, size, deleteButton);
         info.append(title, meta);
         card.append(preview, info);
         grid.append(card);
