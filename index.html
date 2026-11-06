@@ -176,7 +176,9 @@
     const SUPABASE_URL = "https://ksotjfwekiquoumbnpno.supabase.co";
     const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_5GGVkmqdb14vPyx6MfcKEQ_NYKJZxfh";
     const BUCKET_NAME = "my-works";
-    const DELETE_CONFIRMATION_KEY = "070414"; // 仅作为二次确认；公开网页源码中可见，不是安全认证。
+    // 仅作为二次确认；公开网页源码中可见，不是安全认证。
+    const DELETE_CONFIRMATION_KEY = "070414";
+    const UPLOAD_CONFIRMATION_KEY = DELETE_CONFIRMATION_KEY;
     const CATEGORIES = ["PS", "AI", "AU", "3D Max"];
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
@@ -203,6 +205,17 @@
     fileInput.addEventListener("change", async (event) => {
       const selectedFiles = Array.from(event.target.files || []);
       if (!selectedFiles.length) return;
+
+      const enteredUploadKey = window.prompt("请输入上传确认密钥以继续：");
+      if (enteredUploadKey === null) {
+        fileInput.value = "";
+        return;
+      }
+      if (enteredUploadKey !== UPLOAD_CONFIRMATION_KEY) {
+        alert("确认密钥错误，已取消上传。");
+        fileInput.value = "";
+        return;
+      }
 
       const categoryInput = window.prompt("请选择分类：PS、AI、AU 或 3D Max", "PS");
       if (categoryInput === null) {
