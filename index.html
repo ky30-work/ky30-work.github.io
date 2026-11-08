@@ -7,321 +7,107 @@
   <title>龟仙人的作品集</title>
   <style>
     :root {
-      --brown: #76502f;
-      --brown-dark: #4f3928;
-      --muted: #8d7964;
-      --yellow: #f5d875;
-      --yellow-light: #fff8df;
-      --line: #d7c6a3;
-      --surface: rgba(255, 255, 255, .98);
-      --shadow: 0 12px 34px rgba(90, 62, 35, .10);
+      --brown: #76502f; --brown-dark: #4f3928; --muted: #8d7964;
+      --yellow: #f5d875; --yellow-light: #fff8df; --line: #d7c6a3;
+      --surface: rgba(255, 255, 255, .98); --shadow: 0 12px 34px rgba(90, 62, 35, .10);
     }
-
     * { box-sizing: border-box; }
-    body {
-      position: relative;
-      isolation: isolate;
-      min-height: 100vh;
-      margin: 0;
-      color: var(--brown-dark);
-      background: #f8f6f0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
-        "Microsoft YaHei", sans-serif;
-    }
-    body::before {
-      position: fixed;
-      z-index: -1;
-      inset: 0;
-      background-image: url("./pumbg.jpg");
-      background-position: center top;
-      background-size: min(100vw, 780px) auto;
-      background-repeat: repeat;
-      opacity: .24;
-      content: "";
-      pointer-events: none;
-    }
+    body { position: relative; isolation: isolate; min-height: 100vh; margin: 0; color: var(--brown-dark); background: #f8f6f0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    body::before { position: fixed; z-index: -1; inset: 0; background-image: url("./pumbg.jpg"); background-position: center top; background-size: min(100vw, 780px) auto; background-repeat: repeat; opacity: .24; content: ""; pointer-events: none; }
     button { font: inherit; }
-    .topbar {
-      position: sticky;
-      z-index: 5;
-      top: 0;
-      display: flex;
-      height: 72px;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 max(6%, calc((100% - 1120px) / 2));
-      background: rgba(255, 255, 255, .97);
-      border-bottom: 1px solid #d7c6a3;
-      backdrop-filter: blur(12px);
-    }
+    .topbar { position: sticky; z-index: 5; top: 0; display: flex; height: 72px; align-items: center; justify-content: space-between; padding: 0 max(6%, calc((100% - 1120px) / 2)); background: rgba(255, 255, 255, .97); border-bottom: 1px solid #d7c6a3; backdrop-filter: blur(12px); }
     .brand { display: flex; align-items: center; gap: 11px; font-size: 18px; font-weight: 800; }
-    .brand-mark {
-      display: grid;
-      width: 42px;
-      height: 42px;
-      place-items: center;
-      overflow: hidden;
-      border: 1px solid #efdfb3;
-      border-radius: 50%;
-      background: #fff4c8;
-    }
+    .brand-mark { display: grid; width: 42px; height: 42px; place-items: center; overflow: hidden; border: 1px solid #efdfb3; border-radius: 50%; background: #fff4c8; }
     .brand-mark img { width: 100%; height: 100%; object-fit: contain; }
     .top-note { color: var(--muted); font-size: 13px; }
     main { width: min(1120px, 90%); margin: 0 auto; padding: 42px 0 28px; }
-    .hero {
-      position: relative;
-      display: flex;
-      min-height: 250px;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      overflow: hidden;
-      padding: 34px clamp(22px, 5vw, 52px);
-      border: 1px solid #d9c49a;
-      border-radius: 28px;
-      background: linear-gradient(110deg, rgba(255, 252, 238, .99), rgba(255, 255, 255, .97));
-      box-shadow: var(--shadow);
-    }
+    .hero { position: relative; display: flex; min-height: 250px; align-items: center; justify-content: space-between; gap: 24px; overflow: hidden; padding: 34px clamp(22px, 5vw, 52px); border: 1px solid #d9c49a; border-radius: 28px; background: linear-gradient(110deg, rgba(255, 252, 238, .99), rgba(255, 255, 255, .97)); box-shadow: var(--shadow); }
     .hero-copy { position: relative; z-index: 1; max-width: 580px; }
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin: 0 0 13px;
-      color: #966c36;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-    }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 13px; color: #966c36; font-size: 12px; font-weight: 800; letter-spacing: 1.5px; }
     .eyebrow::before { width: 20px; height: 2px; content: ""; background: #d3a758; }
     h1 { margin: 0; color: var(--brown-dark); font-size: clamp(29px, 4vw, 43px); letter-spacing: -.8px; line-height: 1.2; }
     .hero-copy p:last-child { margin: 13px 0 0; color: #806d59; line-height: 1.8; }
-    .hero-art {
-      position: relative;
-      display: grid;
-      width: min(34%, 260px);
-      min-width: 170px;
-      height: 190px;
-      place-items: center;
-      flex: 0 0 auto;
-    }
+    .hero-art { position: relative; display: grid; width: min(34%, 260px); min-width: 170px; height: 190px; place-items: center; flex: 0 0 auto; }
     .hero-art img { max-width: 100%; max-height: 185px; object-fit: contain; filter: drop-shadow(0 8px 9px rgba(105, 73, 42, .12)); }
-    .hero-art .accent-art {
-      position: absolute;
-      right: -12px;
-      bottom: 1px;
-      width: 78px;
-      height: 78px;
-      padding: 5px;
-      border: 1px solid #e3d2b1;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, .98);
-    }
-    .upload-button {
-      position: relative;
-      z-index: 1;
-      flex: 0 0 auto;
-      padding: 13px 19px;
-      color: #4e3822;
-      background: var(--yellow);
-      border: 1px solid #e8c45d;
-      border-radius: 13px;
-      box-shadow: 0 5px 13px rgba(163, 119, 41, .18);
-      font-weight: 800;
-      cursor: pointer;
-      transition: transform .18s, background .18s;
-    }
+    .hero-art .accent-art { position: absolute; right: -12px; bottom: 1px; width: 78px; height: 78px; padding: 5px; border: 1px solid #e3d2b1; border-radius: 50%; background: rgba(255, 255, 255, .98); }
+    .upload-button { position: relative; z-index: 1; flex: 0 0 auto; padding: 13px 19px; color: #4e3822; background: var(--yellow); border: 1px solid #e8c45d; border-radius: 13px; box-shadow: 0 5px 13px rgba(163, 119, 41, .18); font-weight: 800; cursor: pointer; transition: transform .18s, background .18s; }
     .upload-button:hover { transform: translateY(-2px); background: #f1cc61; }
     .upload-button:disabled { opacity: .65; cursor: wait; transform: none; }
-    .section-heading {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 18px;
-      margin: 36px 0 17px;
-      padding: 0 2px;
-    }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin: 36px 0 17px; padding: 0 2px; }
     .heading-title { display: flex; align-items: center; gap: 10px; }
     .heading-mascot { width: 42px; height: 42px; object-fit: contain; }
     h2 { margin: 0; color: var(--brown-dark); font-size: 22px; }
     .count { margin-top: 5px; color: var(--muted); font-size: 13px; }
     .filters { display: flex; flex-wrap: wrap; gap: 8px; }
-    .filter {
-      padding: 8px 13px;
-      color: #76634f;
-      background: rgba(255, 255, 255, .97);
-      border: 1px solid #d7c6a3;
-      border-radius: 999px;
-      cursor: pointer;
-      font-size: 13px;
-      transition: background .15s, border-color .15s;
-    }
+    .filter { padding: 8px 13px; color: #76634f; background: rgba(255, 255, 255, .97); border: 1px solid #d7c6a3; border-radius: 999px; cursor: pointer; font-size: 13px; transition: background .15s, border-color .15s; }
     .filter:hover, .filter.active { color: #5c4024; border-color: #c5a85e; background: #fff3c8; font-weight: 700; }
     .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
-    .card {
-      overflow: hidden;
-      background: var(--surface);
-      border: 1.5px solid #cbb894;
-      border-radius: 18px;
-      box-shadow: 0 6px 20px rgba(74, 52, 31, .12);
-      transition: transform .2s, box-shadow .2s;
-    }
+    .card { overflow: hidden; background: var(--surface); border: 1.5px solid #cbb894; border-radius: 18px; box-shadow: 0 6px 20px rgba(74, 52, 31, .12); transition: transform .2s, box-shadow .2s; }
     .card:hover { transform: translateY(-3px); box-shadow: 0 13px 28px rgba(74, 52, 31, .18); }
-    .preview {
-      display: grid;
-      height: 210px;
-      place-items: center;
-      overflow: hidden;
-      background: #fffdf8;
-      border-bottom: 1px solid #e0d4bd;
-      cursor: pointer;
-    }
+    .preview { display: grid; height: 210px; place-items: center; overflow: hidden; background: #fffdf8; border-bottom: 1px solid #e0d4bd; cursor: pointer; }
     .preview img { width: 100%; height: 100%; object-fit: cover; }
+    .preview-file { display: grid; width: 100%; height: 100%; place-content: center; justify-items: center; gap: 8px; color: #78572d; background: linear-gradient(135deg, #fffdf8, #fff5d8); }
+    .preview-file-icon { font-size: 48px; line-height: 1; }
+    .preview-file-label { font-size: 13px; font-weight: 800; letter-spacing: 1px; }
     .card-info { padding: 14px 15px 15px; }
     .card-title { overflow: hidden; margin: 0; color: var(--brown-dark); font-size: 15px; text-overflow: ellipsis; white-space: nowrap; }
     .card-meta { display: flex; align-items: center; gap: 9px; margin-top: 11px; }
     .tag { padding: 5px 9px; color: #78572d; background: #fff2c9; border-radius: 999px; font-size: 11px; font-weight: 700; }
     .file-size { margin-left: auto; color: var(--muted); font-size: 12px; }
-    .delete-button {
-      flex: 0 0 auto;
-      padding: 5px 9px;
-      color: #9a5142;
-      background: #fff5f1;
-      border: 1px solid #e3c2b5;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 12px;
-    }
+    .delete-button { flex: 0 0 auto; padding: 5px 9px; color: #9a5142; background: #fff5f1; border: 1px solid #e3c2b5; border-radius: 8px; cursor: pointer; font-size: 12px; }
     .delete-button:hover { color: #fff; background: #a95b48; border-color: #a95b48; }
     .delete-button:disabled { opacity: .6; cursor: wait; }
-    .empty {
-      grid-column: 1 / -1;
-      padding: 58px 20px;
-      color: var(--muted);
-      background: rgba(255, 255, 255, .98);
-      border: 1.5px dashed #cbb894;
-      border-radius: 18px;
-      box-shadow: 0 6px 20px rgba(74, 52, 31, .08);
-      text-align: center;
-    }
+    .empty { grid-column: 1 / -1; padding: 58px 20px; color: var(--muted); background: rgba(255, 255, 255, .98); border: 1.5px dashed #cbb894; border-radius: 18px; box-shadow: 0 6px 20px rgba(74, 52, 31, .08); text-align: center; }
     .empty-icon { margin-bottom: 10px; font-size: 34px; }
     .empty strong { display: block; margin-bottom: 7px; color: var(--brown); }
-    .footer-mascots {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: clamp(18px, 6vw, 65px);
-      margin: 30px auto 4px;
-      padding: 14px 20px;
-      width: fit-content;
-      max-width: 100%;
-      border: 1px solid #d7c6a3;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, .94);
-      box-shadow: 0 4px 14px rgba(74, 52, 31, .08);
-    }
+    .footer-mascots { display: flex; align-items: center; justify-content: center; gap: clamp(18px, 6vw, 65px); margin: 30px auto 4px; padding: 14px 20px; width: fit-content; max-width: 100%; border: 1px solid #d7c6a3; border-radius: 999px; background: rgba(255, 255, 255, .94); box-shadow: 0 4px 14px rgba(74, 52, 31, .08); }
     .footer-mascots img { width: 62px; height: 55px; object-fit: contain; }
-    dialog {
-      width: min(760px, 92vw);
-      max-height: 88vh;
-      padding: 0;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      box-shadow: 0 24px 80px #0003;
-    }
+    dialog { width: min(760px, 92vw); max-height: 88vh; padding: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 24px 80px #0003; }
     dialog::backdrop { background: rgba(47, 35, 24, .58); backdrop-filter: blur(3px); }
     .modal-head { display: flex; align-items: center; justify-content: space-between; padding: 15px 20px; background: #fff; border-bottom: 1px solid var(--line); }
     .modal-head strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .close-button { padding: 4px 8px; color: #68655d; background: none; border: 0; cursor: pointer; font-size: 22px; }
     .modal-content { display: grid; min-height: 220px; max-height: 70vh; place-items: center; padding: 20px; overflow: auto; background: #fff; }
     .modal-content img { max-width: 100%; max-height: 62vh; }
+    .max-download { display: grid; justify-items: center; gap: 12px; color: var(--muted); text-align: center; }
+    .max-download a { padding: 11px 18px; color: #4e3822; background: var(--yellow); border: 1px solid #e8c45d; border-radius: 10px; font-weight: 700; text-decoration: none; }
     @media (max-width: 760px) {
-      main { width: 92%; padding-top: 25px; }
-      .topbar { padding: 0 4%; }
-      .top-note { display: none; }
-      .hero { min-height: auto; flex-wrap: wrap; padding: 25px 23px; }
-      .hero-copy { max-width: 65%; }
-      .hero-art { width: 30%; min-width: 110px; height: 150px; }
-      .hero-art img { max-height: 145px; }
-      .hero-art .accent-art { width: 58px; height: 58px; }
-      .section-heading { align-items: flex-start; flex-direction: column; }
-      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
-      .preview { height: 170px; }
+      main { width: 92%; padding-top: 25px; } .topbar { padding: 0 4%; } .top-note { display: none; }
+      .hero { min-height: auto; flex-wrap: wrap; padding: 25px 23px; } .hero-copy { max-width: 65%; }
+      .hero-art { width: 30%; min-width: 110px; height: 150px; } .hero-art img { max-height: 145px; }
+      .hero-art .accent-art { width: 58px; height: 58px; } .section-heading { align-items: flex-start; flex-direction: column; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; } .preview { height: 170px; }
     }
     @media (max-width: 480px) {
-      .hero-copy { max-width: 100%; }
-      .hero-art { width: 100%; height: 135px; }
-      .hero-art img { max-height: 130px; }
-      .upload-button { width: 100%; }
-      .grid { grid-template-columns: 1fr; }
-      .preview { height: 220px; }
-      .footer-mascots { gap: 12px; padding: 10px 14px; }
-      .footer-mascots img { width: 48px; height: 45px; }
+      .hero-copy { max-width: 100%; } .hero-art { width: 100%; height: 135px; }
+      .hero-art img { max-height: 130px; } .upload-button { width: 100%; }
+      .grid { grid-template-columns: 1fr; } .preview { height: 220px; }
+      .footer-mascots { gap: 12px; padding: 10px 14px; } .footer-mascots img { width: 48px; height: 45px; }
     }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
-    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <header class="topbar">
-    <div class="brand">
-      <span class="brand-mark"><img src="./pum2.png" alt="" /></span>
-      <span>龟仙人的作品集</span>
-    </div>
+    <div class="brand"><span class="brand-mark"><img src="./pum2.png" alt="" /></span><span>龟仙人的作品集</span></div>
     <div class="top-note">一点灵感 · 一点布丁狗的可爱</div>
   </header>
-
   <main>
     <section class="hero">
-      <div class="hero-copy">
-        <p class="eyebrow">MY CREATIVE SPACE</p>
-        <h1>每一份创作，都值得被看见。</h1>
-        <p>欢迎来到我的小小创作空间，愿每个灵感都像布丁一样甜。</p>
-      </div>
-      <div class="hero-art" aria-hidden="true">
-        <img src="./pum1.png" alt="" />
-        <img class="accent-art" src="./pum3.png" alt="" />
-      </div>
+      <div class="hero-copy"><p class="eyebrow">MY CREATIVE SPACE</p><h1>每一份创作，都值得被看见。</h1><p>欢迎来到我的小小创作空间，愿每个灵感都像布丁一样甜。</p></div>
+      <div class="hero-art" aria-hidden="true"><img src="./pum1.png" alt="" /><img class="accent-art" src="./pum3.png" alt="" /></div>
       <button class="upload-button" id="openUpload" type="button">＋ 上传图片</button>
     </section>
-
     <section class="section-heading">
-      <div>
-        <div class="heading-title">
-          <h2>作品展示</h2>
-          <img class="heading-mascot" src="./pum4.png" alt="" aria-hidden="true" />
-        </div>
-        <div class="count" id="count">正在加载作品…</div>
-      </div>
-      <nav class="filters" aria-label="作品分类">
-        <button class="filter active" data-category="全部">全部</button>
-        <button class="filter" data-category="PS">PS</button>
-        <button class="filter" data-category="AI">AI</button>
-        <button class="filter" data-category="AU">AU</button>
-        <button class="filter" data-category="3D Max">3D Max</button>
-      </nav>
+      <div><div class="heading-title"><h2>作品展示</h2><img class="heading-mascot" src="./pum4.png" alt="" aria-hidden="true" /></div><div class="count" id="count">正在加载作品…</div></div>
+      <nav class="filters" aria-label="作品分类"><button class="filter active" data-category="全部">全部</button><button class="filter" data-category="PS">PS</button><button class="filter" data-category="AI">AI</button><button class="filter" data-category="AU">AU</button><button class="filter" data-category="3D Max">3D Max</button></nav>
     </section>
-
     <section class="grid" id="作品网格" aria-live="polite"></section>
-    <div class="footer-mascots" aria-hidden="true">
-      <img src="./pum3.png" alt="" />
-      <img src="./pum4.png" alt="" />
-      <img src="./pum5.png" alt="" />
-    </div>
-    <input id="fileInput" type="file" multiple hidden accept="image/*" />
-
-    <dialog id="previewDialog">
-      <div class="modal-head">
-        <strong id="modalTitle"></strong>
-        <button class="close-button" id="closeModal" aria-label="关闭">×</button>
-      </div>
-      <div class="modal-content" id="modalContent"></div>
-    </dialog>
+    <div class="footer-mascots" aria-hidden="true"><img src="./pum3.png" alt="" /><img src="./pum4.png" alt="" /><img src="./pum5.png" alt="" /></div>
+    <input id="fileInput" type="file" multiple hidden accept="image/*,.max" />
+    <dialog id="previewDialog"><div class="modal-head"><strong id="modalTitle"></strong><button class="close-button" id="closeModal" aria-label="关闭">×</button></div><div class="modal-content" id="modalContent"></div></dialog>
   </main>
-
   <script>
     const SUPABASE_URL = "https://ksotjfwekiquoumbnpno.supabase.co";
     const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_5GGVkmqdb14vPyx6MfcKEQ_NYKJZxfh";
@@ -331,18 +117,15 @@
     const UPLOAD_CONFIRMATION_KEY = DELETE_CONFIRMATION_KEY;
     const CATEGORIES = ["PS", "AI", "AU", "3D Max"];
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
-
     const works = [];
     let activeCategory = "全部";
     let isLoading = false;
-
     const grid = document.getElementById("作品网格");
     const fileInput = document.getElementById("fileInput");
     const uploadButton = document.getElementById("openUpload");
     const dialog = document.getElementById("previewDialog");
 
     uploadButton.addEventListener("click", () => fileInput.click());
-
     document.querySelectorAll(".filter").forEach((button) => {
       button.addEventListener("click", () => {
         document.querySelector(".filter.active").classList.remove("active");
@@ -355,42 +138,29 @@
     fileInput.addEventListener("change", async (event) => {
       const selectedFiles = Array.from(event.target.files || []);
       if (!selectedFiles.length) return;
-
       const enteredUploadKey = window.prompt("请输入上传确认密钥以继续：");
-      if (enteredUploadKey === null) {
-        fileInput.value = "";
-        return;
-      }
+      if (enteredUploadKey === null) { fileInput.value = ""; return; }
       if (enteredUploadKey !== UPLOAD_CONFIRMATION_KEY) {
-        alert("确认密钥错误，已取消上传。");
-        fileInput.value = "";
-        return;
+        alert("确认密钥错误，已取消上传。"); fileInput.value = ""; return;
       }
-
       const categoryInput = window.prompt("请选择分类：PS、AI、AU 或 3D Max", "PS");
-      if (categoryInput === null) {
-        fileInput.value = "";
-        return;
-      }
-
+      if (categoryInput === null) { fileInput.value = ""; return; }
       const categoryMap = {
-        ps: "PS", photoshop: "PS",
-        ai: "AI", illustrator: "AI",
-        au: "AU", audition: "AU",
+        ps: "PS", photoshop: "PS", ai: "AI", illustrator: "AI", au: "AU", audition: "AU",
         "3d max": "3D Max", "3dmax": "3D Max", "3ds max": "3D Max"
       };
       const category = categoryMap[categoryInput.trim().toLowerCase()];
-      if (!category) {
-        alert("请输入 PS、AI、AU 或 3D Max。");
-        fileInput.value = "";
-        return;
-      }
-
-      const nonImages = selectedFiles.filter((file) => !file.type.startsWith("image/"));
-      if (nonImages.length) {
-        alert("这里只支持上传图片文件。");
-        fileInput.value = "";
-        return;
+      if (!category) { alert("请输入 PS、AI、AU 或 3D Max。"); fileInput.value = ""; return; }
+      const invalidFiles = selectedFiles.filter((file) => {
+        const isImage = file.type.startsWith("image/");
+        const isMaxFile = /\.max$/i.test(file.name);
+        return !isImage && !(category === "3D Max" && isMaxFile);
+      });
+      if (invalidFiles.length) {
+        alert(category === "3D Max"
+          ? "3D Max 分类只支持图片文件或 .max 文件。"
+          : "该分类只支持上传图片文件；.max 文件请放入 3D Max 分类。");
+        fileInput.value = ""; return;
       }
 
       uploadButton.disabled = true;
@@ -401,21 +171,16 @@
           const safeName = file.name.normalize("NFKC").replace(/[\\/?%*:|"<>]/g, "_");
           const uniqueName = `${crypto.randomUUID()}__${safeName}`;
           const objectPath = `${category}/${uniqueName}`;
-          const { error } = await supabaseClient.storage
-            .from(BUCKET_NAME)
-            .upload(objectPath, file, {
-              cacheControl: "3600",
-              contentType: file.type,
-              upsert: false
-            });
-
+          const contentType = file.type || (/\.max$/i.test(file.name) ? "application/octet-stream" : "application/octet-stream");
+          const { error } = await supabaseClient.storage.from(BUCKET_NAME).upload(objectPath, file, {
+            cacheControl: "3600", contentType, upsert: false
+          });
           if (error) errors.push(`${file.name}：${error.message}`);
           else uploadedCount += 1;
         }
-
         if (uploadedCount > 0) await loadWorks();
         if (errors.length) alert(`有 ${errors.length} 个文件上传失败：\n${errors.join("\n")}`);
-        else if (uploadedCount > 0) alert(`成功上传 ${uploadedCount} 张图片。`);
+        else if (uploadedCount > 0) alert(`成功上传 ${uploadedCount} 个文件。`);
       } catch (error) {
         console.error("上传或读取 Supabase Storage 失败：", error);
         alert(`操作失败：${error.message || "请检查网络及 Supabase Storage 策略。"}`);
@@ -426,8 +191,9 @@
       }
     });
 
+    function isMaxFile(item) { return item.category === "3D Max" && /\.max$/i.test(item.name); }
     function formatSize(bytes) {
-      if (!Number.isFinite(bytes) || bytes <= 0) return "图片";
+      if (!Number.isFinite(bytes) || bytes <= 0) return "文件";
       if (bytes < 1024 * 1024) return `${Math.max(1, Math.round(bytes / 1024))} KB`;
       return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
     }
@@ -437,140 +203,79 @@
       render();
       try {
         const results = await Promise.all(CATEGORIES.map(async (category) => {
-          const { data, error } = await supabaseClient.storage
-            .from(BUCKET_NAME)
-            .list(category, {
-              limit: 1000,
-              sortBy: { column: "created_at", order: "desc" }
-            });
+          const { data, error } = await supabaseClient.storage.from(BUCKET_NAME).list(category, {
+            limit: 1000, sortBy: { column: "created_at", order: "desc" }
+          });
           if (error) throw error;
-
-          return (data || [])
-            .filter((object) => object.name && object.metadata)
-            .map((object) => {
-              const objectPath = `${category}/${object.name}`;
-              const { data: publicData } = supabaseClient.storage
-                .from(BUCKET_NAME)
-                .getPublicUrl(objectPath);
-              const name = object.name.includes("__")
-                ? object.name.slice(object.name.indexOf("__") + 2)
-                : object.name;
-              return {
-                id: objectPath,
-                path: objectPath,
-                name,
-                category,
-                size: Number(object.metadata.size) || 0,
-                url: publicData.publicUrl,
-                createdAt: object.created_at || ""
-              };
-            });
+          return (data || []).filter((object) => object.name && object.metadata).map((object) => {
+            const objectPath = `${category}/${object.name}`;
+            const { data: publicData } = supabaseClient.storage.from(BUCKET_NAME).getPublicUrl(objectPath);
+            const name = object.name.includes("__") ? object.name.slice(object.name.indexOf("__") + 2) : object.name;
+            return { id: objectPath, path: objectPath, name, category, size: Number(object.metadata.size) || 0, url: publicData.publicUrl, createdAt: object.created_at || "" };
+          });
         }));
-
         works.splice(0, works.length, ...results.flat());
         works.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
       } catch (error) {
         console.error("读取 Supabase Storage 失败：", error);
         document.getElementById("count").textContent = "作品加载失败";
         grid.innerHTML = "<div class=\"empty\"><div class=\"empty-icon\">⚠️</div><strong>无法加载作品</strong><span>请检查 Supabase Storage 桶和读取策略设置。</span></div>";
-      } finally {
-        isLoading = false;
-        render();
-      }
+      } finally { isLoading = false; render(); }
     }
 
     async function deleteWork(item, button) {
       if (!window.confirm(`确定要永久删除「${item.name}」吗？此操作无法撤销。`)) return;
-
       const enteredKey = window.prompt("请输入删除确认密钥以继续：");
       if (enteredKey === null) return;
-      if (enteredKey !== DELETE_CONFIRMATION_KEY) {
-        alert("确认密钥错误，未删除作品。");
-        return;
-      }
-
+      if (enteredKey !== DELETE_CONFIRMATION_KEY) { alert("确认密钥错误，未删除作品。"); return; }
       button.disabled = true;
       button.textContent = "删除中…";
       try {
-        const { error } = await supabaseClient.storage
-          .from(BUCKET_NAME)
-          .remove([item.path]);
+        const { error } = await supabaseClient.storage.from(BUCKET_NAME).remove([item.path]);
         if (error) throw error;
-
         const index = works.findIndex((work) => work.path === item.path);
         if (index !== -1) works.splice(index, 1);
         render();
       } catch (error) {
-        console.error("删除 Supabase Storage 图片失败：", error);
+        console.error("删除 Supabase Storage 文件失败：", error);
         alert(`删除失败：${error.message || "请检查 Storage 删除权限后重试。"}`);
-        button.disabled = false;
-        button.textContent = "删除";
+        button.disabled = false; button.textContent = "删除";
       }
     }
 
     function render() {
-      const visibleWorks = activeCategory === "全部"
-        ? works
-        : works.filter((item) => item.category === activeCategory);
-
-      document.getElementById("count").textContent = isLoading
-        ? "正在加载作品…"
-        : `共 ${works.length} 件作品`;
+      const visibleWorks = activeCategory === "全部" ? works : works.filter((item) => item.category === activeCategory);
+      document.getElementById("count").textContent = isLoading ? "正在加载作品…" : `共 ${works.length} 件作品`;
       grid.replaceChildren();
-
       if (isLoading && works.length === 0) {
-        const loading = document.createElement("div");
-        loading.className = "empty";
-        loading.textContent = "正在从 Supabase 加载作品…";
-        grid.append(loading);
-        return;
+        const loading = document.createElement("div"); loading.className = "empty"; loading.textContent = "正在从 Supabase 加载作品…"; grid.append(loading); return;
       }
-
       if (!visibleWorks.length) {
-        const empty = document.createElement("div");
-        empty.className = "empty";
+        const empty = document.createElement("div"); empty.className = "empty";
         empty.innerHTML = "<div class='empty-icon'>🍮</div><strong>这里还空空的</strong><span>点击「上传图片」，和布丁狗一起添加第一份创作吧。</span>";
-        grid.append(empty);
-        return;
+        grid.append(empty); return;
       }
-
       visibleWorks.forEach((item) => {
-        const card = document.createElement("article");
-        card.className = "card";
-
-        const preview = document.createElement("div");
-        preview.className = "preview";
+        const card = document.createElement("article"); card.className = "card";
+        const preview = document.createElement("div"); preview.className = "preview";
         preview.addEventListener("click", () => openPreview(item));
-        const image = document.createElement("img");
-        image.src = item.url;
-        image.alt = item.name;
-        image.loading = "lazy";
-        preview.append(image);
-
-        const info = document.createElement("div");
-        info.className = "card-info";
-        const title = document.createElement("h3");
-        title.className = "card-title";
-        title.textContent = item.name;
-        const meta = document.createElement("div");
-        meta.className = "card-meta";
-        const tag = document.createElement("span");
-        tag.className = "tag";
-        tag.textContent = item.category;
-        const size = document.createElement("span");
-        size.className = "file-size";
-        size.textContent = formatSize(item.size);
-        const deleteButton = document.createElement("button");
-        deleteButton.className = "delete-button";
-        deleteButton.type = "button";
-        deleteButton.textContent = "删除";
+        if (isMaxFile(item)) {
+          const filePreview = document.createElement("div"); filePreview.className = "preview-file";
+          const icon = document.createElement("span"); icon.className = "preview-file-icon"; icon.textContent = "📦";
+          const label = document.createElement("span"); label.className = "preview-file-label"; label.textContent = "3DS MAX 文件";
+          filePreview.append(icon, label); preview.append(filePreview);
+        } else {
+          const image = document.createElement("img"); image.src = item.url; image.alt = item.name; image.loading = "lazy"; preview.append(image);
+        }
+        const info = document.createElement("div"); info.className = "card-info";
+        const title = document.createElement("h3"); title.className = "card-title"; title.textContent = item.name;
+        const meta = document.createElement("div"); meta.className = "card-meta";
+        const tag = document.createElement("span"); tag.className = "tag"; tag.textContent = item.category;
+        const size = document.createElement("span"); size.className = "file-size"; size.textContent = formatSize(item.size);
+        const deleteButton = document.createElement("button"); deleteButton.className = "delete-button"; deleteButton.type = "button"; deleteButton.textContent = "删除";
         deleteButton.setAttribute("aria-label", `删除作品 ${item.name}`);
         deleteButton.addEventListener("click", () => deleteWork(item, deleteButton));
-
-        meta.append(tag, size, deleteButton);
-        info.append(title, meta);
-        card.append(preview, info);
-        grid.append(card);
+        meta.append(tag, size, deleteButton); info.append(title, meta); card.append(preview, info); grid.append(card);
       });
     }
 
@@ -578,18 +283,21 @@
       const content = document.getElementById("modalContent");
       content.replaceChildren();
       document.getElementById("modalTitle").textContent = item.name;
-      const image = document.createElement("img");
-      image.src = item.url;
-      image.alt = item.name;
-      content.append(image);
+      if (isMaxFile(item)) {
+        const download = document.createElement("div"); download.className = "max-download";
+        const description = document.createElement("span"); description.textContent = "这是 3D Max 项目文件，浏览器无法直接预览。";
+        const link = document.createElement("a"); link.href = item.url; link.target = "_blank"; link.rel = "noopener";
+        link.download = item.name; link.textContent = "下载 .max 文件";
+        const downloadUrl = new URL(item.url); downloadUrl.searchParams.set("download", item.name); link.href = downloadUrl.toString();
+        download.append(description, link); content.append(download);
+      } else {
+        const image = document.createElement("img"); image.src = item.url; image.alt = item.name; content.append(image);
+      }
       dialog.showModal();
     }
 
     document.getElementById("closeModal").addEventListener("click", () => dialog.close());
-    dialog.addEventListener("click", (event) => {
-      if (event.target === dialog) dialog.close();
-    });
-
+    dialog.addEventListener("click", (event) => { if (event.target === dialog) dialog.close(); });
     loadWorks();
   </script>
 </body>
