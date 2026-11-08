@@ -125,6 +125,11 @@
     const uploadButton = document.getElementById("openUpload");
     const dialog = document.getElementById("previewDialog");
 
+    function storagePrefixes(category) {
+      // Storage 对象 key 不使用带空格的目录名；同时读取旧目录以兼容已上传作品。
+      return category === "3D Max" ? ["3D-Max", "3D Max"] : [category];
+    }
+
     uploadButton.addEventListener("click", () => fileInput.click());
     document.querySelectorAll(".filter").forEach((button) => {
       button.addEventListener("click", () => {
@@ -170,8 +175,8 @@
         for (const file of selectedFiles) {
           const safeName = file.name.normalize("NFKC").replace(/[\\/?%*:|"<>]/g, "_");
           const uniqueName = `${crypto.randomUUID()}__${safeName}`;
-          const objectPath = `${category}/${uniqueName}`;
-          const contentType = file.type || (/\.max$/i.test(file.name) ? "application/octet-stream" : "application/octet-stream");
+          const objectPath = `${storagePrefixes(category)[0]}/${uniqueName}`;
+          const contentType = file.type || "application/octet-stream";
           const { error } = await supabaseClient.storage.from(BUCKET_NAME).upload(objectPath, file, {
             cacheControl: "3600", contentType, upsert: false
           });
@@ -203,16 +208,19 @@
       render();
       try {
         const results = await Promise.all(CATEGORIES.map(async (category) => {
-          const { data, error } = await supabaseClient.storage.from(BUCKET_NAME).list(category, {
-            limit: 1000, sortBy: { column: "created_at", order: "desc" }
-          });
-          if (error) throw error;
-          return (data || []).filter((object) => object.name && object.metadata).map((object) => {
-            const objectPath = `${category}/${object.name}`;
-            const { data: publicData } = supabaseClient.storage.from(BUCKET_NAME).getPublicUrl(objectPath);
-            const name = object.name.includes("__") ? object.name.slice(object.name.indexOf("__") + 2) : object.name;
-            return { id: objectPath, path: objectPath, name, category, size: Number(object.metadata.size) || 0, url: publicData.publicUrl, createdAt: object.created_at || "" };
-          });
+          const prefixResults = await Promise.all(storagePrefixes(category).map(async (prefix) => {
+            const { data, error } = await supabaseClient.storage.from(BUCKET_NAME).list(prefix, {
+              limit: 1000, sortBy: { column: "created_at", order: "desc" }
+            });
+            if (error) throw error;
+            return (data || []).filter((object) => object.name && object.metadata).map((object) => {
+              const objectPath = `${prefix}/${object.name}`;
+              const { data: publicData } = supabaseClient.storage.from(BUCKET_NAME).getPublicUrl(objectPath);
+              const name = object.name.includes("__") ? object.name.slice(object.name.indexOf("__") + 2) : object.name;
+              return { id: objectPath, path: objectPath, name, category, size: Number(object.metadata.size) || 0, url: publicData.publicUrl, createdAt: object.created_at || "" };
+            });
+          }));
+          return prefixResults.flat();
         }));
         works.splice(0, works.length, ...results.flat());
         works.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
